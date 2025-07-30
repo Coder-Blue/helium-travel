@@ -23,6 +23,7 @@ logs
 .env.*
 !.env.example
 
+# Database
 local.db*
 
 docker-data
