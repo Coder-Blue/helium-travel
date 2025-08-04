@@ -6,7 +6,12 @@ export default defineNuxtConfig({
 
   css: ["~/assets/css/app.css"],
 
-  modules: ["@nuxt/eslint", "@nuxt/fonts", "@nuxt/icon"],
+  modules: [
+    "@nuxt/eslint",
+    "@nuxt/fonts",
+    "@nuxt/icon",
+    "@nuxtjs/color-mode",
+  ],
 
   vite: {
     plugins: [
@@ -24,5 +29,9 @@ export default defineNuxtConfig({
       styles: ["normal", "italic"],
       subsets: ["latin", "vietnamese"],
     },
+  },
+
+  colorMode: {
+    dataValue: "theme",
   },
 });
