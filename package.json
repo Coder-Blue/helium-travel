@@ -1,0 +1,28 @@
+{
+  "name": "helium-travel",
+  "private": true,
+  "type": "module",
+  "version": "0.2.0",
+  "author": {
+    "name": "Noah Trần",
+    "url": "https://github.com/Coder-Blue",
+    "email": "trananhquan1009@gmail.com"
+  },
+  "description": "A simple travel log app built with Nuxt",
+  "license": "MIT",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "nuxt": "^4.0.1",
+    "vue": "^3.5.18",
+    "vue-router": "^4.5.1"
+  },
+  "overrides": {
+    "vite": "npm:rolldown-vite@latest"
+  }
+}
