@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  theme:
+    light --default,
+    dark --prefersdark;
+}
+
+@theme {
+  --font-inter: "Inter", "sans-serif";
+}
+
+body {
+  @apply font-inter;
+}
