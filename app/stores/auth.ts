@@ -17,7 +17,7 @@ export const useAuthStore = defineStore("useAuthStore", () => {
     const { csrf } = useCsrf();
 
     const headers = new Headers();
-    headers.append("csrf-token", csrf());
+    headers.append("csrf-token", csrf);
 
     await authClient.signIn.social({
       provider: "google",
@@ -33,7 +33,7 @@ export const useAuthStore = defineStore("useAuthStore", () => {
     const { csrf } = useCsrf();
 
     const headers = new Headers();
-    headers.append("csrf-token", csrf());
+    headers.append("csrf-token", csrf);
 
     await authClient.signOut({
       fetchOptions: {
