@@ -7,10 +7,7 @@
     </div>
     <div class="navbar-end">
       <AppThemeToggle />
-      <button class="btn btn-accent">
-        Đăng Nhập Với Google
-        <Icon name="tabler:brand-google-filled" size="24" />
-      </button>
+      <AuthButton />
     </div>
   </div>
 </template>
