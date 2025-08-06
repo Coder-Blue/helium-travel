@@ -31,7 +31,7 @@ const onSubmit = handleSubmit(async (values) => {
     if (error.data?.data) {
       setErrors(error.data?.data);
     }
-    submitError.value = error.statusMessage || "Lỗi bất ngờ đã xảy ra.";
+    submitError.value = error.data?.statusMessage || error.statusMessage || "Lỗi bất ngờ đã xảy ra.";
     loading.value = false;
   }
 });
@@ -53,7 +53,7 @@ onBeforeRouteLeave(() => {
   <div class="container max-w-md mx-auto">
     <div class="my-4">
       <h1 class="text-lg">
-        Thêm Vị Trí
+        Thêm Địa Điểm
       </h1>
       <p class="text-sm">
         Địa điểm là nơi bạn đã hoặc sẽ đến. Đó có thể là một thành phố, quốc gia, tiểu bang hoặc điểm tham quan. Bạn có thể thêm thời gian cụ thể đã đến địa điểm này sau khi thêm địa điểm.
