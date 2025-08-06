@@ -34,13 +34,13 @@ function toggleSidebar() {
         <SidebarButton
           href="/dashboard"
           :show-label="isSidebarOpen"
-          label="Vị trí"
+          label="Địa điểm"
           icon="tabler:map"
         />
         <SidebarButton
           href="/dashboard/add"
           :show-label="isSidebarOpen"
-          label="Thêm vị trí"
+          label="Thêm địa điểm"
           icon="tabler:circle-plus-filled"
         />
         <div class="divider" />
