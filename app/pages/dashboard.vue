@@ -5,6 +5,7 @@ const route = useRoute();
 
 const sidebarStore = useSidebarStore();
 const locationsStore = useLocationStore();
+const mapStore = useMapStore();
 
 onMounted(() => {
   isSidebarOpen.value = localStorage.getItem("isSidebarOpen") === "true";
@@ -20,7 +21,7 @@ function toggleSidebar() {
 </script>
 
 <template>
-  <div class="flex flex-1">
+  <div class="flex-1 flex">
     <div class="bg-base-100 transition-all duration-300 shrink-0" :class="{ 'w-64': isSidebarOpen, 'w-16': !isSidebarOpen }">
       <div
         class="flex hover:cursor-pointer hover:bg-base-200 p-2"
@@ -38,18 +39,18 @@ function toggleSidebar() {
           size="32"
         />
       </div>
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col">
         <SidebarButton
-          href="/dashboard"
           :show-label="isSidebarOpen"
           label="Địa điểm"
           icon="tabler:map"
+          href="/dashboard"
         />
         <SidebarButton
-          href="/dashboard/add"
           :show-label="isSidebarOpen"
           label="Thêm địa điểm"
           icon="tabler:circle-plus-filled"
+          href="/dashboard/add"
         />
         <div v-if="sidebarStore.loading || sidebarStore.sidebarItems.length" class="divider" />
         <div v-if="sidebarStore.loading" class="px-4">
@@ -63,6 +64,9 @@ function toggleSidebar() {
             :label="item.label"
             :icon="item.icon"
             :href="item.href"
+            :icon-color="mapStore.selectedPoint === item.location ? 'text-accent' : undefined"
+            @mouseenter="mapStore.selectedPoint = item.location ?? null"
+            @mouseleave="mapStore.selectedPoint = null"
           />
         </div>
         <div class="divider" />

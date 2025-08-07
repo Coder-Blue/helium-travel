@@ -3,6 +3,7 @@ type SidebarItem = {
   label: string;
   icon: string;
   href: string;
+  location?: MapPoint | null;
 };
 
 export const useSidebarStore = defineStore("useSidebarStore", () => {
