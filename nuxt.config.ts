@@ -16,12 +16,15 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@vee-validate/nuxt",
     "nuxt-csurf",
+    "nuxt-maplibre",
   ],
 
   vite: {
-    plugins: [
-      tailwindcss(),
-    ],
+    plugins: [tailwindcss()],
+
+    optimizeDeps: {
+      include: ["maplibre-gl"],
+    },
   },
 
   eslint: {
