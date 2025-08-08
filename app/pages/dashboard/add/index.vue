@@ -1,18 +1,26 @@
 <script lang="ts" setup>
 import type { FetchError } from "ofetch";
 
+import { CENTER_DALAT } from "~/lib/constants";
 import { InsertLocation } from "~/lib/db/schema";
 
 const { $csrfFetch } = useNuxtApp();
 
 const router = useRouter();
 
+const mapStore = useMapStore();
 const loading = ref(false);
 const submitted = ref(false);
 const submitError = ref("");
 
-const { handleSubmit, errors, meta, setErrors } = useForm({
+const { handleSubmit, errors, meta, setErrors, setFieldValue, controlledValues } = useForm({
   validationSchema: toTypedSchema(InsertLocation),
+  initialValues: {
+    name: "",
+    description: "",
+    long: (CENTER_DALAT as [number, number])[0],
+    lat: (CENTER_DALAT as [number, number])[1],
+  },
 });
 
 const onSubmit = handleSubmit(async (values) => {
@@ -32,8 +40,31 @@ const onSubmit = handleSubmit(async (values) => {
       setErrors(error.data?.data);
     }
     submitError.value = error.data?.statusMessage || error.statusMessage || "Lỗi bất ngờ đã xảy ra.";
-    loading.value = false;
   }
+  loading.value = false;
+});
+
+effect(() => {
+  if (mapStore.addedPoint) {
+    setFieldValue("long", mapStore.addedPoint.long);
+    setFieldValue("lat", mapStore.addedPoint.lat);
+  }
+});
+
+function formatNumber(value?: number) {
+  if (!value)
+    return 0;
+  return value.toFixed(5);
+}
+
+onMounted(() => {
+  mapStore.addedPoint = {
+    id: 1,
+    name: "Thêm địa điểm",
+    description: "",
+    long: (CENTER_DALAT as [number, number])[0],
+    lat: (CENTER_DALAT as [number, number])[1],
+  };
 });
 
 onBeforeRouteLeave(() => {
@@ -50,7 +81,7 @@ onBeforeRouteLeave(() => {
 </script>
 
 <template>
-  <div class="container max-w-md mx-auto">
+  <div class="container max-w-md mx-auto p-4">
     <div class="my-4">
       <h1 class="text-lg">
         Thêm Địa Điểm
@@ -80,18 +111,11 @@ onBeforeRouteLeave(() => {
         :error="errors.description"
         :disabled="loading"
       />
-      <AppFormField
-        name="lat"
-        label="Vĩ độ"
-        :error="errors.lat"
-        :disabled="loading"
-      />
-      <AppFormField
-        name="long"
-        label="Kinh độ"
-        :error="errors.long"
-        :disabled="loading"
-      />
+      <p>Kéo thả con dấu <Icon name="tabler:map-pin-filled" class="text-warning" /> để đánh dấu địa điểm bạn muốn</p>
+      <p>Hoặc nhấp đôi chuột vị trí trên bản đồ</p>
+      <p class="text-xs text-gray-400">
+        Địa điểm hiện tại: {{ formatNumber(controlledValues.lat) }}, {{ controlledValues.long }}
+      </p>
       <div class="flex justify-end gap-2">
         <button
           :disabled="loading"

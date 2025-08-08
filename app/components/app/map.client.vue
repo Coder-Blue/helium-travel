@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import type { MglEvent } from "@indoorequal/vue-maplibre-gl";
+import type { LngLat } from "maplibre-gl";
+
 import { CENTER_DALAT } from "~/lib/constants";
 
 const colorMode = useColorMode();
@@ -14,6 +17,20 @@ const zoom = 3;
 onMounted(() => {
   mapStore.init();
 });
+
+function updateAddedPoint(location: LngLat) {
+  if (mapStore.addedPoint) {
+    mapStore.addedPoint.lat = location.lat;
+    mapStore.addedPoint.long = location.lng;
+  }
+}
+
+function onDoubleClick(mglEvent: MglEvent<"dblclick">) {
+  if (mapStore.addedPoint) {
+    mapStore.addedPoint.lat = mglEvent.event.lngLat.lat;
+    mapStore.addedPoint.long = mglEvent.event.lngLat.lng;
+  }
+}
 </script>
 
 <template>
@@ -21,8 +38,25 @@ onMounted(() => {
     :map-style="style"
     :center="CENTER_DALAT"
     :zoom="zoom"
+    @map:dblclick="onDoubleClick"
   >
     <MglNavigationControl />
+    <MglMarker
+      v-if="mapStore.addedPoint"
+      draggable
+      :coordinates="[mapStore.addedPoint.long, mapStore.addedPoint.lat]"
+      @update:coordinates="updateAddedPoint"
+    >
+      <template #marker>
+        <div class="tooltip tooltip-top tooltip-open hover:cursor-pointer" data-tip="Kéo thả đến địa điểm bạn muốn">
+          <Icon
+            name="tabler:map-pin-filled"
+            size="35"
+            class="text-warning"
+          />
+        </div>
+      </template>
+    </MglMarker>
     <MglMarker
       v-for="point in mapStore.mapPoints"
       :key="point.id"
@@ -31,12 +65,10 @@ onMounted(() => {
       <template #marker>
         <div
           class="tooltip tooltip-top hover:cursor-pointer"
+          :class="{ 'tooltip-open': mapStore.selectedPoint === point }"
           :data-tip="point.name"
-          :class="{
-            'tooltip-open': mapStore.selectedPoint === point,
-          }"
-          @mouseenter="mapStore.selectedPointWithoutFlyTo(point)"
-          @mouseleave="mapStore.selectedPointWithoutFlyTo(null)"
+          @mouseenter="mapStore.selectedPoint = point"
+          @mouseleave="mapStore.selectedPoint = null"
         >
           <Icon
             name="tabler:map-pin-filled"
