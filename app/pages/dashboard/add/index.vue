@@ -39,7 +39,7 @@ const onSubmit = handleSubmit(async (values) => {
     if (error.data?.data) {
       setErrors(error.data?.data);
     }
-    submitError.value = error.data?.statusMessage || error.statusMessage || "Lỗi bất ngờ đã xảy ra.";
+    submitError.value = getFetchErrorMessage(error);
   }
   loading.value = false;
 });
@@ -66,6 +66,18 @@ onMounted(() => {
     lat: (CENTER_DALAT as [number, number])[1],
   };
 });
+
+function searchResultSelected(result: NominatimResult) {
+  setFieldValue("name", result.display_name);
+  mapStore.addedPoint = {
+    id: 1,
+    name: "Thêm địa điểm",
+    description: "",
+    long: Number(result.lon),
+    lat: Number(result.lat),
+    centerMap: true,
+  };
+}
 
 onBeforeRouteLeave(() => {
   if (!submitted.value && meta.value.dirty) {
@@ -111,11 +123,15 @@ onBeforeRouteLeave(() => {
         :error="errors.description"
         :disabled="loading"
       />
-      <p>Kéo thả con dấu <Icon name="tabler:map-pin-filled" class="text-warning" /> để đánh dấu địa điểm bạn muốn</p>
-      <p>Hoặc nhấp đôi chuột vị trí trên bản đồ</p>
       <p class="text-xs text-gray-400">
-        Địa điểm hiện tại: {{ formatNumber(controlledValues.lat) }}, {{ controlledValues.long }}
+        Tọa độ hiện tại: {{ formatNumber(controlledValues.lat) }}, {{ controlledValues.long }}
       </p>
+      <p>Để đặt địa điểm:</p>
+      <ul class="list-disc ml-4 text-sm">
+        <li>Kéo thả con dấu <Icon name="tabler:map-pin-filled" class="text-warning" /> trên bản đồ.</li>
+        <li>Nhấp đôi chuột vào bản đồ</li>
+        <li>Tìm kiếm qua ô phía dưới</li>
+      </ul>
       <div class="flex justify-end gap-2">
         <button
           :disabled="loading"
@@ -140,5 +156,7 @@ onBeforeRouteLeave(() => {
         </button>
       </div>
     </form>
+    <div class="divider" />
+    <AppPlaceSearch @result-selected="searchResultSelected" />
   </div>
 </template>
