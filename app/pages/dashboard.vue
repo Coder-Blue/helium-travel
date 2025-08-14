@@ -60,12 +60,12 @@ function toggleSidebar() {
           <SidebarButton
             v-for="item in sidebarStore.sidebarItems"
             :key="item.id"
+            :to="item.to"
             :show-label="isSidebarOpen"
             :label="item.label"
             :icon="item.icon"
-            :href="item.href"
-            :icon-color="mapStore.selectedPoint === item.location ? 'text-accent' : undefined"
-            @mouseenter="mapStore.selectedPoint = item.location ?? null"
+            :icon-color="isPointSelected(item.mapPoint, mapStore.selectedPoint) ? 'text-accent' : undefined"
+            @mouseenter="mapStore.selectedPoint = item.mapPoint ?? null"
             @mouseleave="mapStore.selectedPoint = null"
           />
         </div>

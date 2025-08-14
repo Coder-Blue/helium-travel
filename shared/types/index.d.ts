@@ -1,4 +1,9 @@
-import type { UserWithId } from "~/lib/auth";
+import type { User } from "better-auth";
+import type { RouteLocationRaw } from "vue-router";
+
+export type UserWithId = Omit<User, "id"> & {
+  id: number;
+};
 
 declare module "h3" {
   // eslint-disable-next-line ts/consistent-type-definitions
@@ -16,6 +21,8 @@ export type MapPoint = {
   id: number;
   name: string;
   description: string | null;
+  to?: RouteLocationRaw;
+  toLabel?: string;
 } & LatLongItem;
 
 export type NominatimResult = {
