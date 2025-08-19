@@ -102,11 +102,17 @@ onBeforeRouteUpdate((to) => {
         <p class="text-sm italic">
           Thêm 1 ghi chú cho địa điểm để bắt đầu.
         </p>
+        <NuxtLink
+          class="btn btn-primary mt-2"
+          :to="{
+            name: 'dashboard-location-slug-add',
+            params: { slug: route.params.slug },
+          }"
+        >
+          Thêm ghi chú địa điểm
+          <Icon name="tabler:map-pin-plus" size="24" />
+        </NuxtLink>
       </div>
-      <button class="btn btn-primary mt-2">
-        Thêm ghi chú địa điểm
-        <Icon name="tabler:map-pin-plus" size="24" />
-      </button>
     </div>
     <div v-if="route.name !== 'dashboard-location-slug'">
       <NuxtPage />
