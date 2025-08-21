@@ -1,6 +1,6 @@
-import type { SelectLocationWithLogs } from "~/lib/db/schema";
+import type { SelectLocationLog, SelectLocationWithLogs } from "~/lib/db/schema";
 
-import { CURRENT_LOCATION_PAGES, LOCATION_PAGES } from "~/lib/constants";
+import { CURRENT_LOCATION_LOG_PAGES, CURRENT_LOCATION_PAGES, LOCATION_PAGES } from "~/lib/constants";
 
 import type { SidebarItem } from "./sidebar";
 
@@ -16,6 +16,7 @@ export const useLocationStore = defineStore("useLocationStore", () => {
   });
 
   const locationUrlWithSlug = computed(() => `/api/locations/${route.params.slug}`);
+  const locationLogUrlWithSlugAndId = computed(() => `/api/locations/${route.params.slug}/${route.params.id}`);
 
   const {
     data: currentLocation,
@@ -25,6 +26,18 @@ export const useLocationStore = defineStore("useLocationStore", () => {
   } = useFetch<SelectLocationWithLogs>(locationUrlWithSlug, {
     lazy: true,
     immediate: false,
+    watch: false,
+  });
+
+  const {
+    data: currentLocationLog,
+    status: currentLocationLogStatus,
+    error: currentLocationLogError,
+    refresh: refreshCurrentLocationLog,
+  } = useFetch<SelectLocationLog>(locationLogUrlWithSlugAndId, {
+    lazy: true,
+    immediate: false,
+    watch: false,
   });
 
   const sidebarStore = useSidebarStore();
@@ -79,6 +92,11 @@ export const useLocationStore = defineStore("useLocationStore", () => {
         mapStore.mapPoints = [currentLocation.value];
       }
     }
+    else if (currentLocationLog.value && CURRENT_LOCATION_LOG_PAGES.has(route.name?.toString() || "")) {
+      sidebarStore.sidebarItems = [];
+
+      mapStore.mapPoints = [currentLocationLog.value];
+    }
 
     sidebarStore.loading = locationsStatus.value === "pending" || currentLocationStatus.value === "pending";
 
@@ -94,5 +112,9 @@ export const useLocationStore = defineStore("useLocationStore", () => {
     currentLocationStatus,
     currentLocationError,
     refreshCurrentLocation,
+    currentLocationLog,
+    currentLocationLogStatus,
+    currentLocationLogError,
+    refreshCurrentLocationLog,
   };
 });
