@@ -114,7 +114,10 @@ onBeforeRouteUpdate((to) => {
         </NuxtLink>
       </div>
     </div>
-    <div v-if="route.name === 'dashboard-location-slug' && location?.locationLogs.length" class="location-list">
+    <div
+      v-if="route.name === 'dashboard-location-slug' && !loading && location?.locationLogs.length"
+      class="location-list"
+    >
       <LocationCard
         v-for="log in location.locationLogs"
         :key="log.id"
@@ -123,10 +126,10 @@ onBeforeRouteUpdate((to) => {
         <template #top>
           <p class="text-sm italic text-gray-500">
             <span v-if="log.startedAt !== log.endedAt">
-              {{ formatDisplayDate(log.startedAt) }} / {{ formatDisplayDate(log.endedAt) }}
+              {{ formatDate(log.startedAt).formatted }} / {{ formatDate(log.endedAt).formatted }}
             </span>
             <span v-else>
-              {{ formatDisplayDate(log.startedAt) }}
+              {{ formatDate(log.startedAt).formatted }}
             </span>
           </p>
         </template>

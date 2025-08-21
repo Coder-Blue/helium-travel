@@ -31,7 +31,7 @@ function dateChanged(event: Event) {
       :class="{
         'input-error': props.error,
       }"
-      :value="formatDate(inputValue)"
+      :value="formatDate(inputValue).formFormatted"
       @change="dateChanged"
       @blur="handleBlur"
     >
