@@ -11,8 +11,8 @@ const {
 } = storeToRefs(locationStore);
 
 const isOpen = ref<boolean>(false);
-const deleteError = ref("");
-const isDeleting = ref(false);
+const deleteError = ref<string>("");
+const isDeleting = ref<boolean>(false);
 
 const loading = computed(() => status.value === "pending" || isDeleting.value);
 const errorMessage = computed(() => error.value?.statusMessage || deleteError.value);
@@ -140,7 +140,7 @@ onBeforeRouteUpdate((to) => {
     </div>
     <AppDialog
       title="Bạn chắc chứ?"
-      description="Xóa địa điểm này cũng sẽ xóa toàn bộ các ghi chú liên quan. Hành động này không thể hoàn tác. Bạn có chắc bạn muốn xóa?"
+      description="Xóa địa điểm này cũng sẽ đồng thời xóa toàn bộ các ghi chú liên quan. Hành động này không thể hoàn tác. Bạn có chắc bạn muốn xóa?"
       confirm-label="Có! Xóa địa điểm này."
       confirm-class="btn-error"
       :is-open="isOpen"
