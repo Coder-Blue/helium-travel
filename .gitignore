@@ -25,3 +25,6 @@ logs
 
 # Local db
 local.db*
+
+# Local S3 Storage
+docker-data
