@@ -1,6 +1,6 @@
 import tailwindcss from "@tailwindcss/vite";
 
-import "./app/lib/env";
+import env from "./app/lib/env";
 
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
@@ -30,6 +30,12 @@ export default defineNuxtConfig({
       watch: {
         ignored: ["./docker-data/*"],
       },
+    },
+  },
+
+  runtimeConfig: {
+    public: {
+      s3BucketUrl: env.S3_BUCKET_URL,
     },
   },
 
