@@ -1,24 +1,52 @@
 <script lang="ts" setup>
 import type { SelectLocationLogImage } from "~/lib/db/schema";
 
-defineProps<{
+const props = defineProps<{
   images: SelectLocationLogImage[];
 }>();
 
 const config = useRuntimeConfig();
+
+const isGalleryVisible = ref<boolean>(false);
+const galleryIndex = ref<number>(0);
+const galleryImages = computed(() => props.images.map(image => `${config.public.s3BucketUrl}/${image.key}`));
+
+function showImage(index: number) {
+  galleryIndex.value = index;
+  isGalleryVisible.value = true;
+}
+
+function closeGallery() {
+  isGalleryVisible.value = false;
+}
 </script>
 
 <template>
   <div class="flex mt-2 gap-2 overflow-auto">
     <div
-      v-for="image in images"
+      v-for="(image, index) in images"
       :key="image.id"
       class="card card-compact h-40 w-64 bg-base-300 shrink-0 flex items-center justify-center"
     >
       <div class="card-body size-full">
-        <img :src="`${config.public.s3BucketUrl}/${image.key}`" class="size-full object-cover">
-        <slot :image />
+        <img
+          :src="`${config.public.s3BucketUrl}/${image.key}`"
+          class="size-full object-cover cursor-pointer"
+          @click="showImage(index)"
+        >
+        <slot :image name="card-bottom" />
       </div>
     </div>
+    <VueEasyLightbox
+      :visible="isGalleryVisible"
+      :imgs="galleryImages"
+      :index="galleryIndex"
+      :loop="true"
+      @hide="closeGallery"
+    >
+      <template #toolbar>
+        <span />
+      </template>
+    </VueEasyLightbox>
   </div>
 </template>

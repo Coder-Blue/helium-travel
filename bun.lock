@@ -24,6 +24,7 @@
         "nanoid": "^5.1.5",
         "nuxt": "^4.0.3",
         "nuxt-csurf": "1.6.5",
+        "nuxt-easy-lightbox": "1.1.0",
         "nuxt-maplibre": "1.1.1",
         "pinia": "^3.0.3",
         "slug": "^11.0.0",
@@ -1982,6 +1983,8 @@
 
     "nuxt-csurf": ["nuxt-csurf@1.6.5", "", { "dependencies": { "@nuxt/kit": "^3.13.2", "defu": "^6.1.4", "uncsrf": "^1.2.0" } }, "sha512-/DMNTON8LIVhntamKbBmAuM879B0QnuSJa7ZAkmkZe+21m+1QGcjVUxtSkizaM48NUvkuAGYOG0ncn+kqEgrzw=="],
 
+    "nuxt-easy-lightbox": ["nuxt-easy-lightbox@1.1.0", "", { "dependencies": { "@nuxt/kit": "^4.0.1", "vue-easy-lightbox": "^1.19.0" } }, "sha512-a8eseAvAC2w+zmptmb4+4UmaCwxRtgZkrfMHo84lAc4aINK+J7ZFDx3zzAr/hhpNHZEduNgSbF9LbfqDSFRzxA=="],
+
     "nuxt-maplibre": ["nuxt-maplibre@1.1.1", "", { "dependencies": { "@indoorequal/vue-maplibre-gl": "^8.3.0", "maplibre-gl": "^5.2.0" } }, "sha512-Nc6bDM6+o6vyfZt2eOc2NNL7rdvcZwnlfKDkGXUwRNrUnEAgd2DMYSjdYcYINDH39flPKubig0jYU42g10oLnw=="],
 
     "nypm": ["nypm@0.6.1", "", { "dependencies": { "citty": "^0.1.6", "consola": "^3.4.2", "pathe": "^2.0.3", "pkg-types": "^2.2.0", "tinyexec": "^1.0.1" }, "bin": { "nypm": "dist/cli.mjs" } }, "sha512-hlacBiRiv1k9hZFiphPUkfSQ/ZfQzZDzC+8z0wL3lvDAOUu/2NnChkKuMoMjNur/9OpKuz2QsIeiPVN0xM5Q0w=="],
@@ -2521,6 +2524,8 @@
     "vue-bundle-renderer": ["vue-bundle-renderer@2.1.2", "", { "dependencies": { "ufo": "^1.6.1" } }, "sha512-M4WRBO/O/7G9phGaGH9AOwOnYtY9ZpPoDVpBpRzR2jO5rFL9mgIlQIgums2ljCTC2HL1jDXFQc//CzWcAQHgAw=="],
 
     "vue-devtools-stub": ["vue-devtools-stub@0.1.0", "", {}, "sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ=="],
+
+    "vue-easy-lightbox": ["vue-easy-lightbox@1.19.0", "", { "peerDependencies": { "vue": "^3.0.0" } }, "sha512-YxLXgjEn91UF3DuK1y8u3Pyx2sJ7a/MnBpkyrBSQkvU1glzEJASyAZ7N+5yDpmxBQDVMwCsL2VmxWGIiFrWCgA=="],
 
     "vue-eslint-parser": ["vue-eslint-parser@10.2.0", "", { "dependencies": { "debug": "^4.4.0", "eslint-scope": "^8.2.0", "eslint-visitor-keys": "^4.2.0", "espree": "^10.3.0", "esquery": "^1.6.0", "semver": "^7.6.3" }, "peerDependencies": { "eslint": "^8.57.0 || ^9.0.0" } }, "sha512-CydUvFOQKD928UzZhTp4pr2vWz1L+H99t7Pkln2QSPdvmURT0MoC4wUccfCnuEaihNsu9aYYyk+bep8rlfkUXw=="],
 
