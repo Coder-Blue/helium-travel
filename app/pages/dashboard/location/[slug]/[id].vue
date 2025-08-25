@@ -139,7 +139,7 @@ onBeforeRouteUpdate((to) => {
       description="Hành động xóa ghi chú này không thể hoàn tác. Bạn có chắc bạn muốn xóa?"
       confirm-label="Có! Xóa ghi chú này."
       confirm-class="btn-error"
-      :is-open="isOpen"
+      :is-open
       @on-closed="isOpen = false"
       @on-confirmed="confirmDelete"
     />

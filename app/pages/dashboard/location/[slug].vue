@@ -143,7 +143,7 @@ onBeforeRouteUpdate((to) => {
       description="Xóa địa điểm này cũng sẽ đồng thời xóa toàn bộ các ghi chú liên quan. Hành động này không thể hoàn tác. Bạn có chắc bạn muốn xóa?"
       confirm-label="Có! Xóa địa điểm này."
       confirm-class="btn-error"
-      :is-open="isOpen"
+      :is-open
       @on-closed="isOpen = false"
       @on-confirmed="confirmDelete"
     />

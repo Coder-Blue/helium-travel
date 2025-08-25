@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { FetchError } from "ofetch";
 
+import type { SelectLocationLogImage } from "~/lib/db/schema";
+
 const locationStore = useLocationStore();
 
 const image = ref<File | null>(null);
@@ -8,6 +10,10 @@ const previewUrl = ref<string | null>(null);
 const loading = ref<boolean>(false);
 const errorMessage = ref<string>("");
 const imageInput = useTemplateRef("imageInput");
+
+const isOpen = ref<boolean>(false);
+const isDeleting = ref<boolean>(false);
+const deletingImage = ref<SelectLocationLogImage | null>(null);
 
 const { $csrfFetch } = useNuxtApp();
 const route = useRoute();
@@ -108,6 +114,42 @@ async function uploadImage() {
   });
   previewImage.src = previewUrl.value;
 }
+
+function onDialogClose() {
+  deletingImage.value = null;
+  isOpen.value = false;
+}
+
+function deleteImage(image: SelectLocationLogImage) {
+  deletingImage.value = image;
+  isOpen.value = true;
+}
+
+async function confirmDelete() {
+  if (!deletingImage.value)
+    return;
+
+  isOpen.value = false;
+
+  try {
+    isDeleting.value = true;
+    errorMessage.value = "";
+
+    await $fetch(`/api/locations/${route.params.slug}/${route.params.id}/image/${deletingImage.value.id}`, {
+      method: "DELETE",
+    });
+
+    await locationStore.refreshCurrentLocationLog();
+  }
+  catch (e) {
+    const error = e as FetchError;
+
+    errorMessage.value = getFetchErrorMessage(error);
+  }
+  isDeleting.value = false;
+
+  deletingImage.value = null;
+}
 </script>
 
 <template>
@@ -119,7 +161,7 @@ async function uploadImage() {
       <div class="flex gap-2 flex-col w-72">
         <div class="bg-gray-500 h-28 w-full flex justify-center items-center p-1 relative">
           <p v-if="!previewUrl" class="text-center text-white">
-            Chọn một bức ảnh
+            Chọn một tấm ảnh
           </p>
           <img
             v-else
@@ -146,11 +188,36 @@ async function uploadImage() {
           :disabled="!image || loading"
           @click="uploadImage"
         >
-          Đăng tải
+          Upload
           <Icon name="tabler:photo-share" size="24" />
         </button>
       </div>
-      <ImageList class="ml-2" :images="locationLog?.images || []" />
+      <ImageList class="ml-2" :images="locationLog?.images || []">
+        <template #default="{ image: item }">
+          <button
+            class="btn btn-error btn-xs"
+            :disabled="deletingImage === item && isDeleting"
+            @click="deleteImage(item)"
+          >
+            Xóa
+            <div v-if="deletingImage === item && isDeleting" class="loading loading-xs" />
+            <Icon
+              v-else
+              name="tabler:trash-x-filled"
+              size="18"
+            />
+          </button>
+        </template>
+      </ImageList>
     </div>
+    <AppDialog
+      title="Bạn chắc chắn chứ?"
+      description="Thao tác xóa này không thể hoàn tác. Bạn thật sự muốn xóa bức ảnh này chứ?"
+      confirm-label="Có, tôi chắc chắn"
+      confirm-class="btn-error"
+      :is-open
+      @on-closed="onDialogClose"
+      @on-confirmed="confirmDelete"
+    />
   </div>
 </template>
