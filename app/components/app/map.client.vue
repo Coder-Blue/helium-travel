@@ -53,7 +53,7 @@ function onDoubleClick(mglEvent: MglEvent<"dblclick">) {
           <Icon
             name="tabler:map-pin-filled"
             size="35"
-            class="text-warning"
+            class="text-primary dark:text-warning"
           />
         </div>
       </template>

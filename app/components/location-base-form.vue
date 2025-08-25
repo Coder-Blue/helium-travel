@@ -112,7 +112,7 @@ onBeforeRouteLeave(() => {
     </p>
     <p>Để đặt địa điểm:</p>
     <ul class="list-disc ml-4 text-sm">
-      <li>Kéo thả con dấu <Icon name="tabler:map-pin-filled" class="text-warning" /> trên bản đồ.</li>
+      <li>Kéo thả con dấu <Icon name="tabler:map-pin-filled" class="text-primary dark:text-warning" /> trên bản đồ.</li>
       <li>Nhấp đôi chuột vào bản đồ</li>
       <li>Tìm kiếm qua ô phía dưới</li>
     </ul>

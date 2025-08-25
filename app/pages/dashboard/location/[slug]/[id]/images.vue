@@ -193,7 +193,7 @@ async function confirmDelete() {
         </button>
       </div>
       <ImageList class="ml-2" :images="locationLog?.images || []">
-        <template #default="{ image: item }">
+        <template #card-bottom="{ image: item }">
           <button
             class="btn btn-error btn-xs"
             :disabled="deletingImage === item && isDeleting"
