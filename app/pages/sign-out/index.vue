@@ -4,6 +4,10 @@ const authStore = useAuthStore();
 onMounted(() => {
   authStore.signOut();
 });
+
+useHead({
+  title: "Đăng xuất - Helium Travel",
+});
 </script>
 
 <template>

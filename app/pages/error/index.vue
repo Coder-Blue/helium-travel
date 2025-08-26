@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 const route = useRoute();
 const error = route.query.error || "Lỗi bất ngờ đã xảy ra.";
+
+useHead({
+  title: "Lỗi - Helium Travel",
+});
 </script>
 
 <template>

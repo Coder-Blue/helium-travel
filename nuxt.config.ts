@@ -40,6 +40,12 @@ export default defineNuxtConfig({
     },
   },
 
+  app: {
+    head: {
+      htmlAttrs: { lang: "vi-VN" },
+    },
+  },
+
   eslint: {
     config: { standalone: false },
   },

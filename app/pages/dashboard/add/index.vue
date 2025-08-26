@@ -13,6 +13,10 @@ async function onSubmit(values: InsertLocation) {
 function onSubmitComplete() {
   navigateTo("/dashboard");
 }
+
+useHead({
+  title: "Thêm địa điểm - Helium Travel",
+});
 </script>
 
 <template>
