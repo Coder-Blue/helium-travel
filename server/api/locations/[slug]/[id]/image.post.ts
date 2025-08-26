@@ -36,10 +36,10 @@ export default defineAuthenticatedEventHandler(async (event) => {
     || metadata["location-log-id"] !== id
     || metadata["user-id"] !== event.context.user.id.toString()
   ) {
-    return sendError(event, createError({
+    throw createError({
       statusCode: 404,
       statusMessage: "Image Not Found.",
-    }));
+    });
   };
 
   const inserted = await insertLocationLogImage(Number(id), result.data, event.context.user.id);

@@ -9,7 +9,7 @@ export default function createS3Client() {
     forcePathStyle: env.S3_ENDPOINT.includes("localhost"),
     credentials: {
       accessKeyId: env.S3_ACCESS_KEY,
-      secretAccessKey: env.S3_SECRET_KEY,
+      secretAccessKey: env.S3_ACCESS_SECRET,
     },
   });
 };

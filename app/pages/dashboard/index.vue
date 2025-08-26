@@ -6,6 +6,10 @@ const { locations, locationsStatus: status } = storeToRefs(locationsStore);
 onMounted(() => {
   locationsStore.refreshLocations();
 });
+
+useHead({
+  title: "Trang chủ - Helium Travel",
+});
 </script>
 
 <template>

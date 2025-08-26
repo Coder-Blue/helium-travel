@@ -11,6 +11,10 @@ const { handleBlur, value: inputValue, handleChange } = useField<number>(props.n
   initialValue: props.value,
 });
 
+function formatDateISO(value: number) {
+  return new Date(value).toISOString().split("T")[0];
+}
+
 function dateChanged(event: Event) {
   const target = event.target as HTMLInputElement;
 
@@ -31,7 +35,7 @@ function dateChanged(event: Event) {
       :class="{
         'input-error': props.error,
       }"
-      :value="formatDate(inputValue).formFormatted"
+      :value="formatDateISO(inputValue)"
       @change="dateChanged"
       @blur="handleBlur"
     >

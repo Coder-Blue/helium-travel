@@ -42,6 +42,12 @@ async function confirmDelete() {
   isDeleting.value = false;
 }
 
+useHead({
+  title: location.value?.name
+    ? `${location.value.name} - Helium Travel`
+    : "Helium Travel",
+});
+
 onMounted(() => {
   locationStore.refreshCurrentLocation();
 });
@@ -126,10 +132,10 @@ onBeforeRouteUpdate((to) => {
         <template #top>
           <p class="text-sm italic text-gray-500">
             <span v-if="log.startedAt !== log.endedAt">
-              {{ formatDate(log.startedAt).formatted }} / {{ formatDate(log.endedAt).formatted }}
+              {{ formatDate(log.startedAt) }} / {{ formatDate(log.endedAt) }}
             </span>
             <span v-else>
-              {{ formatDate(log.startedAt).formatted }}
+              {{ formatDate(log.startedAt) }}
             </span>
           </p>
         </template>

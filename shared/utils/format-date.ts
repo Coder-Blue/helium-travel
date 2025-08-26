@@ -5,11 +5,5 @@ export function formatDate(value: number | string) {
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
   const day = date.getDate().toString().padStart(2, "0");
 
-  const formatted = `${day}-${month}-${year}`;
-  const formFormatted = `${year}-${month}-${day}`;
-
-  return {
-    formatted,
-    formFormatted,
-  };
+  return `${day}-${month}-${year}`;
 }

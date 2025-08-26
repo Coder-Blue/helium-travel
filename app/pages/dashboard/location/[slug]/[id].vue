@@ -71,10 +71,10 @@ onBeforeRouteUpdate((to) => {
     <div v-if="route.name === 'dashboard-location-slug-id' && locationLog && !loading">
       <p class="text-sm italic text-gray-500">
         <span v-if="locationLog.startedAt !== locationLog.endedAt">
-          {{ formatDate(locationLog.startedAt).formatted }} / {{ formatDate(locationLog.endedAt).formatted }}
+          {{ formatDate(locationLog.startedAt) }} / {{ formatDate(locationLog.endedAt) }}
         </span>
         <span v-else>
-          {{ formatDate(locationLog.startedAt).formatted }}
+          {{ formatDate(locationLog.startedAt) }}
         </span>
       </p>
       <h2 class="text-xl">
