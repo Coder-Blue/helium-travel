@@ -42,14 +42,14 @@ async function confirmDelete() {
   isDeleting.value = false;
 }
 
+onMounted(() => {
+  locationStore.refreshCurrentLocation();
+});
+
 useHead({
   title: location.value?.name
     ? `${location.value.name} - Helium Travel`
     : "Helium Travel",
-});
-
-onMounted(() => {
-  locationStore.refreshCurrentLocation();
 });
 
 onBeforeRouteUpdate((to) => {
