@@ -40,10 +40,8 @@ export default defineNuxtConfig({
     },
   },
 
-  app: {
-    head: {
-      htmlAttrs: { lang: "vi-VN" },
-    },
+  sourcemap: {
+    client: "hidden",
   },
 
   eslint: {

@@ -46,16 +46,16 @@ onMounted(() => {
   locationStore.refreshCurrentLocation();
 });
 
-useHead({
-  title: location.value?.name
-    ? `${location.value.name} - Helium Travel`
-    : "Helium Travel",
-});
-
 onBeforeRouteUpdate((to) => {
   if (to.name === "dashboard-location-slug") {
     locationStore.refreshCurrentLocation();
   }
+});
+
+useHead({
+  title: location.value
+    ? `${location.value.name} - Helium Travel`
+    : "Helium Travel",
 });
 </script>
 
