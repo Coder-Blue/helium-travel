@@ -23,3 +23,7 @@ export const LongSchema = z.coerce
   .number()
   .min(-180, { message: "Kinh độ không được thấp hơn -180 độ" })
   .max(180, { message: "Kinh độ không được cao hơn 180 độ" });
+
+export const DateSchema = z.number({
+  message: "Cần đầy đủ ngày tháng",
+});

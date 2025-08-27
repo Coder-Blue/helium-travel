@@ -2,6 +2,7 @@
 import { Analytics } from "@vercel/analytics/nuxt";
 
 useHead({
+  htmlAttrs: { lang: "vi" },
   title: "Helium Travel",
   meta: [
     { name: "description", content: "Một trang lưu trữ nhật ký du lịch nhanh và nhẹ viết bằng Nuxt" },
